@@ -2,6 +2,8 @@
 
 from django.contrib import admin
 from .models import Genre, Filmwork, Person, GenreFilmwork, PersonFilmwork
+from django.utils.translation import gettext_lazy as _
+
 
 class GenreFilmworkInline(admin.TabularInline):
     model = GenreFilmwork
@@ -20,7 +22,7 @@ class GenreAdmin(admin.ModelAdmin):
     # Фильтрация в списке
     # Filtering in the list
     list_filter = ('created', 'modified')
-    empty_value_display = '--пусто--'
+    empty_value_display = _('--empty--')
     # inlines = (GenreFilmworkInline,)
 
 @admin.register(Filmwork)
@@ -28,7 +30,7 @@ class FilmworkAdmin(admin.ModelAdmin):
     list_display = ('title', 'creation_date', 'rating', 'type', 'created', 'modified')
     search_fields = ('title',)
     list_filter = ('creation_date', 'rating', 'type', 'created', 'modified')
-    empty_value_display = '--пусто--'
+    empty_value_display = _('--empty--')
     inlines = (GenreFilmworkInline, PersonFilmworkInline)
 
 @admin.register(Person)
@@ -36,5 +38,5 @@ class PersonAdmin(admin.ModelAdmin):
     list_display = ('full_name', 'created', 'modified')
     search_fields = ('full_name',)
     list_filter = ('created', 'modified')
-    empty_value_display = '--пусто--'
+    empty_value_display = _('--empty--')
     # inlines = (PersonFilmworkInline,)
