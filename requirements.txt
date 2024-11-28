@@ -1,0 +1,6 @@
+Faker==25.0.1
+psycopg[binary]==3.1.18
+django==4.2.16
+flake8==6.1.0
+django-split-settings
+pydantic-settings
