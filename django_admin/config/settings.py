@@ -97,4 +97,4 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOCALE_PATHS = ['config/locale']
+LOCALE_PATHS = [BASE_DIR / 'config/locale']

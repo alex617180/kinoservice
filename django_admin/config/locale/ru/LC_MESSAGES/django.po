@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-28 15:52+0000\n"
+"POT-Creation-Date: 2024-12-01 18:58+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,111 +19,127 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
-
-#: movies/admin.py:25 movies/admin.py:33 movies/admin.py:41
+#: django_admin/movies/admin.py:27 django_admin/movies/admin.py:34
+#: django_admin/movies/admin.py:41
 msgid "--empty--"
 msgstr "--Пусто--"
 
-#: movies/apps.py:7
+#: django_admin/movies/admin.py:54 django_admin/movies/models.py:57
+#: django_admin/movies/models.py:118
+msgid "genres"
+msgstr "Жанры"
+
+#: django_admin/movies/admin.py:61 django_admin/movies/models.py:84
+#: django_admin/movies/models.py:123
+msgid "persons"
+msgstr "Персоны"
+
+#: django_admin/movies/apps.py:7
 msgid "movies"
 msgstr "Фильмы"
 
-#: movies/models.py:36
+#: django_admin/movies/models.py:36
 msgid "name"
 msgstr "Имя"
 
-#: movies/models.py:39 movies/models.py:61
+#: django_admin/movies/models.py:39 django_admin/movies/models.py:92
 msgid "description"
 msgstr "Описание"
 
-#: movies/models.py:52
-msgid "Genre"
-msgstr "Жанр"
-
-#: movies/models.py:53
-msgid "Genres"
-msgstr "Жанры"
-
-#: movies/models.py:57
-msgid "Movie"
+#: django_admin/movies/models.py:44 django_admin/movies/models.py:75
+#: django_admin/movies/models.py:131 django_admin/movies/models.py:145
+#: django_admin/movies/models.py:178
+msgid "film"
 msgstr "Фильм"
 
-#: movies/models.py:58
-msgid "TV Show"
-msgstr "Шоу ТВ"
+#: django_admin/movies/models.py:56 django_admin/movies/models.py:150
+msgid "genre"
+msgstr "Жанр"
 
-#: movies/models.py:60
-msgid "title"
-msgstr "Заголовок"
-
-#: movies/models.py:62
-msgid "creation_date"
-msgstr "Дата создания"
-
-#: movies/models.py:63
-msgid "rating"
-msgstr "Рейтинг"
-
-#: movies/models.py:64
-msgid "type"
-msgstr "Тип"
-
-#: movies/models.py:65
-msgid "certificate"
-msgstr "Сертификат"
-
-#: movies/models.py:70
-msgid "file"
-msgstr "Файл"
-
-#: movies/models.py:80
-msgid "Filmwork"
-msgstr "Кинопроизведение"
-
-#: movies/models.py:81
-msgid "Filmworks"
-msgstr "Кинопроизведения"
-
-#: movies/models.py:85
+#: django_admin/movies/models.py:61
 msgid "male"
 msgstr "Мужчина"
 
-#: movies/models.py:86
+#: django_admin/movies/models.py:62
 msgid "female"
 msgstr "Женщина"
 
-#: movies/models.py:88
+#: django_admin/movies/models.py:64
 msgid "full_name"
 msgstr "Полное имя"
 
-#: movies/models.py:89
+#: django_admin/movies/models.py:66
 msgid "gender"
 msgstr "Пол"
 
-#: movies/models.py:98
-msgid "Person"
+#: django_admin/movies/models.py:83 django_admin/movies/models.py:183
+msgid "person"
 msgstr "Персона"
 
-#: movies/models.py:99
-msgid "Persons"
-msgstr "Персоны"
+#: django_admin/movies/models.py:88
+msgid "movie"
+msgstr "Фильм"
 
-#: movies/models.py:108
-msgid "Genre of filmwork"
-msgstr "Жанр кинопроизведения"
+#: django_admin/movies/models.py:89
+msgid "tv show"
+msgstr "Шоу ТВ"
 
-#: movies/models.py:109
-msgid "Genres of filmworks"
-msgstr "Жанры кинопроизведения"
+#: django_admin/movies/models.py:91
+msgid "title"
+msgstr "Заголовок"
 
-#: movies/models.py:114
+#: django_admin/movies/models.py:93
+msgid "creation_date"
+msgstr "Дата создания"
+
+#: django_admin/movies/models.py:95
+msgid "rating"
+msgstr "Рейтинг"
+
+#: django_admin/movies/models.py:103
+msgid "type"
+msgstr "Тип"
+
+#: django_admin/movies/models.py:112
+msgid "file"
+msgstr "Файл"
+
+#: django_admin/movies/models.py:113
+msgid "certificate"
+msgstr "Сертификат"
+
+#: django_admin/movies/models.py:132
+msgid "films"
+msgstr "Фильмы"
+
+#: django_admin/movies/models.py:159
+msgid "genre of filmwork"
+msgstr "Жанр фильма"
+
+#: django_admin/movies/models.py:160
+msgid "genres of filmworks"
+msgstr "Жанры фильмов"
+
+#: django_admin/movies/models.py:171
+msgid "actor"
+msgstr "Актёр"
+
+#: django_admin/movies/models.py:172
+msgid "director"
+msgstr "Директор"
+
+#: django_admin/movies/models.py:173
+msgid "writer"
+msgstr "Писатель"
+
+#: django_admin/movies/models.py:186
 msgid "role"
 msgstr "Роль"
 
-#: movies/models.py:119
-msgid "Person of filmwork"
-msgstr "Персона кинопроизведения"
+#: django_admin/movies/models.py:195
+msgid "person of film"
+msgstr "Персона фильма"
 
-#: movies/models.py:120
-msgid "Persons of filmworks"
-msgstr "Персоны кинопроизведения"
+#: django_admin/movies/models.py:196
+msgid "persons of film"
+msgstr "Персоны фильма"
