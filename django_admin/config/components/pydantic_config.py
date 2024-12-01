@@ -11,7 +11,6 @@ class AppConfig(BaseSettings):
     debug: bool = False
     language_code: str = "ru-RU"
     time_zone: str = "UTC"
-    static_url: str = "static/"
     allowed_hosts: List[str] = ["127.0.0.1"]
 
     class Config:

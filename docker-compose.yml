@@ -1,25 +1,49 @@
-version: '3'
 services:
-  app:
-    build: app
+  django-admin:
+    build:
+      context: .
+      dockerfile: ./docker_data/django_admin/Dockerfile
+    container_name: django-admin
     expose:
       - "8000"
     env_file:
-      - ./.env
+      - .env
+    volumes:
+      - static_data:/web/django_admin/static
+      - media_data:/web/django_admin/media
+    depends_on:
+      - postgres
+    command: ["/web/django_admin/run_uwsgi.sh"]
+
+  postgres:
+    image: postgres:16
+    container_name: postgres
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: ${PRIMARY_DB_NAME}
+      POSTGRES_USER: ${PRIMARY_DB_USER}
+      POSTGRES_PASSWORD: ${PRIMARY_DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "${PRIMARY_DB_PORT}:5432"
 
   nginx:
     image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
     volumes:
       - ./docker_data/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./docker_data/nginx/configs:/etc/nginx/conf.d:ro
+      - static_data:/var/www/kinoservice/static
+      - media_data:/var/www/kinoservice/media
     depends_on:
-      - app
-    ports:
-      - "80:80"
+      - django-admin
+    restart: always
 
-  postgresql:
-    volumes:
-      - ./database_dump.sql:/docker-entrypoint-initdb.d/init.sql
-
-
-
+volumes:
+  static_data:
+  media_data:
+  postgres_data:

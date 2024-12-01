@@ -46,7 +46,7 @@ class Genre(UUIDMixin, TimeStampedMixin):
     class Meta:
         # Если таблицы находятся в нестандартной схеме, это нужно указать в классе модели
         # If the tables are in a non-standard schema, this must be specified in the model class
-        db_table = "content\" .\"genre"
+        db_table = "content\".\"genre"
         # Названия модели в интерфейсе администратора Django.
         # Model names in the Django admin interface.
         verbose_name = _('Genre')
@@ -76,7 +76,7 @@ class Filmwork(UUIDMixin, TimeStampedMixin):
         return self.title
 
     class Meta:
-        db_table = "content\" .\"film_work"
+        db_table = "content\".\"film_work"
         verbose_name = _('Filmwork')
         verbose_name_plural = _('Filmworks')
 
@@ -94,7 +94,7 @@ class Person(UUIDMixin, TimeStampedMixin):
         return self.full_name
     
     class Meta:
-        db_table = "content\" .\"person"
+        db_table = "content\".\"person"
         verbose_name = _('Person')
         verbose_name_plural = _('Persons')
 
@@ -115,7 +115,7 @@ class PersonFilmwork(UUIDMixin):
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        db_table = "content\" .\"person_film_work"
+        db_table = "content\".\"person_film_work"
         verbose_name = _('Person of filmwork')
         verbose_name_plural = _('Persons of filmworks')
 

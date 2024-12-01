@@ -5,3 +5,4 @@ flake8==6.1.0
 django-split-settings
 pydantic-settings
 django-debug-toolbar
+uwsgi
