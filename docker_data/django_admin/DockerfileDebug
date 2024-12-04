@@ -1,0 +1,37 @@
+# Use Python slim image
+FROM python:3-slim
+
+EXPOSE 8000
+
+# Keeps Python from generating .pyc files in the container
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+WORKDIR /web/django_admin
+
+# Установите необходимые системные зависимости
+RUN apt-get update && apt-get install -y \
+    sqlite3 \
+    gcc \
+    libssl-dev \
+    build-essential \
+    python3-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Копирование проекта
+COPY ./django_admin /web/django_admin
+
+# Создание папок для логов, статики и медиа
+# Копирование зависимостей и установка пакетов
+RUN  pip install --upgrade pip \
+     && pip install --no-cache-dir -r /web/django_admin/requirements.txt
+
+# Копирование файла с переменными окружения
+# COPY .env /web/django_admin/config/.env
+
+# Add a non-root user
+RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /web
+USER appuser
+
+# Default CMD overridden during debugging
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "config.wsgi"]

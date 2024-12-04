@@ -1,0 +1,33 @@
+services:
+  django_admin_debug:
+    image: django_admin_debug
+    build:
+      context: .
+      dockerfile: ./docker_data/django_admin/DockerfileDebug
+    command: ["sh", "-c", "pip install debugpy -t /tmp && python /tmp/debugpy --wait-for-client --listen 0.0.0.0:5678 manage.py runserver 0.0.0.0:8000 --nothreading --noreload"]
+    ports:
+      - 8000:8000
+      - 5678:5678
+    volumes:
+      - .:/web
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+  
+  postgres:
+    image: postgres:16
+    container_name: postgres
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: ${PRIMARY_DB_NAME}
+      POSTGRES_USER: ${PRIMARY_DB_USER}
+      POSTGRES_PASSWORD: ${PRIMARY_DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "${PRIMARY_DB_PORT}:5432"
+
+volumes:
+  postgres_data:
