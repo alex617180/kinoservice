@@ -1,15 +1,10 @@
-# Use Python slim image
-FROM python:3-slim
+FROM python:3.12
 
 EXPOSE 8000
 
-# Keeps Python from generating .pyc files in the container
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
-
 WORKDIR /web/django_admin
 
-# Установите необходимые системные зависимости
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
     sqlite3 \
     gcc \
@@ -18,16 +13,19 @@ RUN apt-get update && apt-get install -y \
     python3-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Копирование проекта
-COPY ./django_admin /web/django_admin
+# Copying the project files
+COPY ./django_admin .
+# Copying .env file
+COPY .env ./config/.env
 
-# Создание папок для логов, статики и медиа
-# Копирование зависимостей и установка пакетов
-RUN  pip install --upgrade pip \
-     && pip install --no-cache-dir -r /web/django_admin/requirements.txt
+# Create directories for static and media files and install dependencies
+RUN mkdir -p ./static ./media \
+    && chown -R www-data:www-data ./static ./media \
+    && pip install --upgrade pip \
+    && pip install --no-cache-dir -r requirements.txt
 
-# Копирование файла с переменными окружения
-# COPY .env /web/django_admin/config/.env
+# Collect static files
+RUN python manage.py collectstatic --noinput
 
 # Add a non-root user
 RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /web
