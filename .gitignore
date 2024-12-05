@@ -8,3 +8,5 @@ __tests__
 __pycache__
 
 .venv
+
+./django_admin/logs/*

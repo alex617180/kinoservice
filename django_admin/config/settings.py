@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 from split_settings.tools import include
 from config.components.pydantic_config import app_config
+from config.components.logging_config import LOGGING
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 

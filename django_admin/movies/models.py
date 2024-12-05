@@ -5,7 +5,7 @@ import uuid
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils.translation import gettext_lazy as _
-
+from config.components.logging_config import logger
 
 class TimeStampedMixin(models.Model):
     # auto_now_add автоматически выставит дату создания записи
