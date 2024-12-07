@@ -15,13 +15,10 @@ class PersonFilmworkInline(admin.TabularInline):
 
 @admin.register(Genre)
 class GenreAdmin(admin.ModelAdmin):
-    # Отображение полей в списке
     # Display fields in the list
     list_display = ('name', 'created', 'modified')
-    # Поиск по полям
     # Search by fields
     search_fields = ('name',)
-    # Фильтрация в списке
     # Filtering in the list
     list_filter = ('created', 'modified')
     empty_value_display = _('--empty--')
@@ -42,21 +39,17 @@ class FilmworkAdmin(admin.ModelAdmin):
     inlines = (GenreFilmworkInline, PersonFilmworkInline)
 
     def get_queryset(self, request):
-        # Оптимизируем запросы для жанров и персон
         # Optimize queries for genres and persons
-        queryset = super().get_queryset(request).prefetch_related('genres', 'person_film_work__person')
+        queryset = super().get_queryset(request).prefetch_related('genres', 'persons')
         return queryset
 
     def get_genres(self, obj):
-        # Возвращаем строку с жанрами
         # Return a string with genres
         return ', '.join([genre.name for genre in obj.genres.all()])
     get_genres.short_description = _('genres')
 
     def get_persons(self, obj):
-        # Возвращаем строку с персональными данными (роль и полное имя)
         # Return a string with personal data (role and full_name)
-        persons = obj.person_film_work.all()
+        persons = obj.personfilmwork_set.all()
         return ', '.join([f"{person.person.full_name} ({person.role})" for person in persons])
     get_persons.short_description = _('persons')
-
