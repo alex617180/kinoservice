@@ -2,7 +2,12 @@ FROM python:3.12
 
 EXPOSE 8000
 
-WORKDIR /web/django_admin
+COPY ./docker_data/django_admin/requirements.txt .
+
+# Install dependencies
+RUN pip install --upgrade pip \
+    && pip install -r requirements.txt \
+    && pip install debugpy -t /tmp
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -13,16 +18,16 @@ RUN apt-get update && apt-get install -y \
     python3-dev \
     && rm -rf /var/lib/apt/lists/*
 
+WORKDIR /web/django_admin
+
 # Copying the project files
 COPY ./django_admin .
 # Copying .env file
 COPY .env ./config/.env
 
-# Create directories for static and media files and install dependencies
+# Create directories for static and media files
 RUN mkdir -p ./static ./media \
-    && chown -R www-data:www-data ./static ./media \
-    && pip install --upgrade pip \
-    && pip install --no-cache-dir -r requirements.txt
+    && chown -R www-data:www-data ./static ./media
 
 # Collect static files
 RUN python manage.py collectstatic --noinput
@@ -32,4 +37,4 @@ RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /
 USER appuser
 
 # Default CMD overridden during debugging
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "config.wsgi"]
+CMD ["sh", "-c", "python /tmp/debugpy --wait-for-client --listen 0.0.0.0:5678 manage.py $DJANGO_COMMAND"]

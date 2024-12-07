@@ -7,4 +7,3 @@ django-debug-toolbar
 uwsgi
 psycopg2-binary
 pytest
-gunicorn
