@@ -5,5 +5,5 @@ django-split-settings
 pydantic-settings
 django-debug-toolbar
 uwsgi
-psycopg2-binary
+psycopg
 pytest

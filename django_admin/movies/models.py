@@ -1,5 +1,4 @@
 # movies/models.py
-# Определение моделей приложения.
 
 import uuid
 from django.db import models
@@ -8,22 +7,17 @@ from django.utils.translation import gettext_lazy as _
 from config.components.logging_config import logger
 
 class TimeStampedMixin(models.Model):
-    # auto_now_add автоматически выставит дату создания записи
     # auto_now_add will automatically set the date when the record was created
     created = models.DateTimeField(auto_now_add=True)
-    # auto_now изменятся при каждом обновлении записи
     # auto_now will change every time the record is updated
     modified = models.DateTimeField(auto_now=True)
 
     class Meta:
-        # Этот параметр указывает Django, что этот класс не является представлением таблицы в базе данных.
         # This parameter tells Django that this class is not a representation of a table in the database.
         abstract = True
 
 
 class UUIDMixin(models.Model):
-    # Типичная модель в Django использует число в качестве id. В таких ситуациях поле не описывается в модели.
-    # Вам же придётся явно объявить primary key.
     # A typical model in Django uses a number as an id. In such situations, the field is not described in the model.
     # You will have to explicitly declare the primary key.
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -34,7 +28,6 @@ class UUIDMixin(models.Model):
 
 class Genre(UUIDMixin, TimeStampedMixin):
     name = models.CharField(_('name'), max_length=255, unique=True)
-    # blank=True делает поле необязательным для заполнения.
     # blank=True makes the field optional.
     description = models.TextField(_('description'), blank=True, null=True)
 
@@ -48,10 +41,8 @@ class Genre(UUIDMixin, TimeStampedMixin):
         return self.name
 
     class Meta:
-        # Если таблицы находятся в нестандартной схеме, это нужно указать в классе модели
         # If the tables are in a non-standard schema, this must be specified in the model class
         db_table = 'content"."genre'
-        # Названия модели в интерфейсе администратора Django.
         # Model names in the Django admin interface.
         verbose_name = _('genre')
         verbose_name_plural = _('genres')
@@ -105,12 +96,9 @@ class Filmwork(UUIDMixin, TimeStampedMixin):
         choices=FilmTypes.choices,
         default=FilmTypes.MOVIE,
     )
-    # Параметр upload_to указывает, в какой подпапке будут храниться загружемые файлы. 
-    # Базовая папка указана в файле настроек как MEDIA_ROOT
     # The upload_to parameter specifies in which subfolder the uploaded files will be stored.
     # The base folder is specified in the settings file as MEDIA_ROOT
     file_path = models.FileField(_('file'), blank=True, null=True, upload_to='movies/')
-    certificate = models.CharField(_('certificate'), max_length=512, blank=True, null=True)
 
     genres = models.ManyToManyField(
         Genre,
