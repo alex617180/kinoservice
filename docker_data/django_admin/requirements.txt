@@ -1,9 +1,10 @@
 Faker==25.0.1
 django==4.2.16
 flake8==6.1.0
-django-split-settings
-pydantic-settings
-django-debug-toolbar
-uwsgi
 psycopg
+django-split-settings
+django-debug-toolbar
+django-extensions
+pydantic-settings
+uwsgi
 pytest

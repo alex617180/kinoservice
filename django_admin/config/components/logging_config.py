@@ -8,8 +8,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': False,
+    'disable_existing_loggers': True,
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        }
+    },
     'formatters': {
+        'default': {
+            'format': '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]',
+        },
         'verbose': {
             'format': '{levelname} {asctime} {module} {message}',
             'style': '{',
@@ -33,12 +41,22 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'formatter': 'simple',
         },
+        'debug-console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'default',
+            'filters': ['require_debug_true'],
+        },
     },
     'loggers': {
         'django': {
             'handlers': ['django_file', 'console'],
             'level': 'DEBUG',
             'propagate': True,
+        },
+        'django.db.backends': {
+            'level': 'DEBUG',
+            'handlers': ['debug-console'],
+            'propagate': False,
         },
     },
 }

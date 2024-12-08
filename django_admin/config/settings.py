@@ -14,6 +14,8 @@ from pathlib import Path
 from split_settings.tools import include
 from config.components.pydantic_config import app_config
 from config.components.logging_config import LOGGING
+from socket import gethostbyname, gethostname
+from ipaddress import ip_network
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -99,3 +101,21 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOCALE_PATHS = [BASE_DIR / 'config/locale']
+
+# Add debug_toolbar to the installed apps and middleware if DEBUG is True
+if DEBUG:
+    INSTALLED_APPS.append('debug_toolbar')
+    MIDDLEWARE.insert(0, 'debug_toolbar.middleware.DebugToolbarMiddleware')
+
+# Defining the IP of the container
+docker_internal_ip = gethostbyname(gethostname())
+
+# We calculate the gateway IP based on the subnet
+docker_network = ip_network(f"{docker_internal_ip}/16", strict=False)
+docker_gateway_ip = str(docker_network.network_address + 1)  # The first IP after the network is the gateway
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+    docker_internal_ip,  # IP of the container
+    docker_gateway_ip,  # Docker Gateway IP
+]
