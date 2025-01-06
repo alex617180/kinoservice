@@ -32,11 +32,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'movies.apps.MoviesConfig',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -118,4 +120,9 @@ INTERNAL_IPS = [
     '127.0.0.1',
     docker_internal_ip,  # IP of the container
     docker_gateway_ip,  # Docker Gateway IP
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:8080",  # Swagger UI, запущенный в контейнере
+    "http://localhost:8080",  # Для локальной разработки
 ]

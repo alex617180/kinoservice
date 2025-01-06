@@ -43,6 +43,17 @@ services:
       - django-admin
     restart: always
 
+  swagger-ui:
+    image: swaggerapi/swagger-ui
+    container_name: swagger-ui
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./docker_data/swagger/openapi.yaml:/swagger.yaml
+    environment:
+      SWAGGER_JSON: /swagger.yaml
+    restart: always
+
 volumes:
   static_data:
   media_data:

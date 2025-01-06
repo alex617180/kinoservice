@@ -8,3 +8,4 @@ django-extensions
 pydantic-settings
 uwsgi
 pytest
+django-cors-headers

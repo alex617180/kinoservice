@@ -46,10 +46,11 @@ class FilmworkAdmin(admin.ModelAdmin):
     def get_genres(self, obj):
         # Return a string with genres
         return ', '.join([genre.name for genre in obj.genres.all()])
-    get_genres.short_description = _('genres')
 
     def get_persons(self, obj):
         # Return a string with personal data (role and full_name)
         persons = obj.personfilmwork_set.all()
         return ', '.join([f"{person.person.full_name} ({person.role})" for person in persons])
+    
+    get_genres.short_description = _('genres')
     get_persons.short_description = _('persons')
